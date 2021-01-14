@@ -10,14 +10,14 @@ const WAIT_TIME = 2000 + SPIN_TIME
 const FINISH_TIME = WAIT_TIME + ANIMATION_TIME
 
 function App () {
-  const [text, setText] = useState('')
+  const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
 
-  const isValid = text === 'pass'
+  const isValid = password === 'pass'
 
   function handleChange (e) {
-    setText(e.target.value)
+    setPassword(e.target.value)
   }
 
   function handleClick () {
@@ -28,6 +28,7 @@ function App () {
     }, SPIN_TIME)
 
     setTimeout(() => {
+      setPassword('')
       setIsComplete(false)
     }, WAIT_TIME)
 
@@ -47,7 +48,12 @@ function App () {
             : "try Again!"
         }
       </Message>
-      <Input type="password" placeholder="Password" onChange={handleChange} />
+      <Input
+        type="password"
+        placeholder="Password"
+        onChange={handleChange}
+        value={password}
+      />
       <Button onClick={handleClick}>
         <Fill isComplete={isComplete} isValid={isValid} />
         { isLoading || isComplete ? (
